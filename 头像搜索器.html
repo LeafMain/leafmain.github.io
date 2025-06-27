@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>头像搜索器</title>
+</head>
+
+<body>
+    <style id="app_style">
+        html * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            /* overflow: hidden; */
+        }
+
+        #app {
+            background: whitesmoke;
+        }
+    </style>
+    <div id="app">
+        <div class="page" id="page_main">
+            <style id="main_style">
+                #page_main .divider {
+                    margin-top: 10px;
+                    text-align: center;
+                }
+
+                #page_main .tip {
+                    font-size: 17px;
+                    color: #333;
+                    font-weight: bold;
+                }
+
+                #main_header {
+                    background-color: #333;
+                    color: #fff;
+                    height: 50px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                #main_avatar_select {
+                    margin-top: 10px;
+                    width: 80%;
+                    height: 30px;
+                    font-size: 16px;
+                }
+
+                #main_search_button {
+                    margin-top: 20px;
+                    width: 50%;
+                    height: 30px;
+                    font-size: 16px;
+                    background-color: #333;
+                    color: #fff;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                }
+
+                #main_avatar_input_left,
+                #main_avatar_input_right {
+                    margin-top: 10px;
+                    width: calc(40% - 30px);
+                    height: 30px;
+                    font-size: 16px;
+                }
+
+                #main_avatar_input_range {
+                    display: block;
+                }
+
+                #main_avatar_result {
+                    margin-top: 20px;
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    border: 1px solid #ccc;
+                    height: calc(100vh - 305px);
+                    overflow-y: auto;
+                }
+
+                #main_avatar_result img {
+                    width: 90px;
+                    height: 90px;
+                    margin: 5px;
+                    border-radius: 10%;
+                    cursor: pointer;
+                }
+
+                #main_avatar_result img:hover {
+                    box-shadow: 0 0 5px #ccc;
+                }
+
+                #main_avatar_input_tip {
+                    color: black;
+                    font-size: 16px;
+                    margin-top: 3px;
+                    height: 16px;
+                }
+
+                #main_footer {
+                    background-color: #444;
+                    color: #fff;
+                    height: 20px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                #main_author {
+                    margin-left: 20px;
+                }
+            </style>
+            <div class="header" id="main_header">
+                <div class="title" id="main_title">
+                    <h1>头像搜索器</h1>
+                </div>
+            </div>
+            <div class="content" id="main_content">
+                <div class="divider">
+                    <div>
+                        <span class="tip">请选择头像来源:</span>
+                    </div>
+                    <select id="main_avatar_select">
+                        <option value="QQ">QQ</option>
+                        <option value="Qzone">Qzone</option>
+                        <option value="wps">WPS</option>
+                        <option value="Chaoxing">Chaoxing</option>
+                    </select>
+
+                </div>
+                <div class="divider">
+                    <span class="tip">
+                        <span>请输入</span>
+                        <span id="main_avatar_input_type">QQ</span>
+                        <span>的头像编号:</span>
+                    </span>
+                    <div id="main_avatar_input_range">
+                        <label for="main_avatar_input_left">从</label>
+                        <input type="number" id="main_avatar_input_left" min="1">
+                        <label for="main_avatar_input_right">到</label>
+                        <input type="number" id="main_avatar_input_right" min="1">
+                    </div>
+                    <button id="main_search_button" type="button">搜索</button>
+                    <div class="tip" id="main_avatar_input_tip">&#9823;</div>
+                </div>
+                <div id="main_avatar_result">
+
+                </div>
+            </div>
+            <div class="footer" id="main_footer">
+                <div class="author" id="main_author">
+                    <small>Made by <b>LeafMain</b></small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script id="app_script">
+        var app = {
+            main: {
+                avatar_select: document.getElementById("main_avatar_select"),
+                avatar_input_left: document.getElementById("main_avatar_input_left"),
+                avatar_input_right: document.getElementById("main_avatar_input_right"),
+                search_button: document.getElementById("main_search_button"),
+                avatar_input_range: document.getElementById("main_avatar_input_range"),
+                avatar_result: document.getElementById("main_avatar_result"),
+                avatar_input_type: document.getElementById("main_avatar_input_type"),
+                avatar_input_tip: document.getElementById("main_avatar_input_tip"),
+                init: function () {
+                    this.avatar_select.addEventListener("change", this.avatar_select_change.bind(this));
+                    this.search_button.addEventListener("click", this.search_button_click.bind(this));
+                    [this.avatar_input_left, this.avatar_input_right].forEach(function (input) {
+                        input.addEventListener("input", this.avatar_input_change.bind(this));
+                    }.bind(this));
+                },
+                avatar_input_change: function () {
+                    if (this.avatar_input_left.value && this.avatar_input_right.value) {
+                        if (this.avatar_result.children.length)
+                            this.avatar_input_tip.textContent = "头像编号已更新,请点击搜索";
+                    }
+                },
+                avatar_select_change: function () {
+                    this.avatar_input_type.textContent = this.avatar_select.value;
+                    if (this.avatar_input_left.value && this.avatar_input_right.value) {
+                        this.avatar_input_tip.textContent = "头像来源已更新,1秒后自动搜索";
+                        this.avatar_result.innerHTML = "";
+                        setTimeout(this.search_button_click.bind(this), 750);
+                    }
+                },
+                search_button_click: function () {
+                    var avatar_type = this.avatar_select.value;
+                    var avatar_left = Number(this.avatar_input_left.value);
+                    var avatar_right = Number(this.avatar_input_right.value);
+                    var avatar_input_tip = this.avatar_input_tip;
+                    this.avatar_result.innerHTML = "";
+                    if (!avatar_left || !avatar_right) {
+                        avatar_input_tip.textContent = "请输入" + avatar_type + "头像编号范围";
+                        return;
+                    }
+                    if (avatar_left > avatar_right) {
+                        avatar_input_tip.textContent = "左侧编号不能大于右侧编号";
+                        return;
+                    }
+                    if (avatar_right - avatar_left >= 30000) {
+                        avatar_input_tip.textContent = avatar_type + "头像编号范围不能超过30000个";
+                        return;
+                    }
+                    this.avatar_result.scrollTo(0, 0);
+                    for (var i = avatar_left; i <= avatar_right; i++) {
+                        var img = document.createElement("img");
+                        if (avatar_type === "QQ") {
+                            img.src = "https://q1.qlogo.cn/g?b=qq&nk=" + i + "&s=100";
+                        } else if (avatar_type === "Qzone") {
+                            img.src = "https://qlogo4.store.qq.com/qzone/" +
+                                i + "/" + i + "/100";
+                        } else if (avatar_type === "wps") {
+                            img.src = "https://img.qwps.cn/" + i;
+                        } else if (avatar_type === "Chaoxing") {
+                            img.src = "https://photo.chaoxing.com/p/" + i + "_320";
+                        }
+                        img.setAttribute("alt", avatar_type + "头像:" + i);
+                        img.setAttribute("data-avatar-type", avatar_type);
+                        img.setAttribute("data-avatar-id", i);
+                        img.addEventListener("mouseover", function (event) {
+                            var avatar_type = event.target.getAttribute("data-avatar-type");
+                            var avatar_id = event.target.getAttribute("data-avatar-id");
+                            avatar_input_tip.textContent = (avatar_type + "头像:" + avatar_id);
+                        });
+                        img.addEventListener("click", function (event) {
+                            if (document.fullscreenElement) {
+                                document.exitFullscreen();
+                            } else {
+                                this.requestFullscreen();
+                            }
+                        });
+                        this.avatar_result.appendChild(img);
+                    }
+                    avatar_input_tip.textContent = "搜索完成，共" +
+                        (avatar_right - avatar_left + 1) + "个" + avatar_type + "头像";
+                }
+            }
+        }
+        app.main.init();
+    </script>
+</body>
+
+</html>
