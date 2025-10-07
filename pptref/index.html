@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPT参考</title>
+</head>
+
+<body>
+    <!-- 全局样式 -->
+    <style id="global_style">
+        html * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        :root {
+            --white: #fff;
+            --grad-color: rgb(162, 184, 252);
+            --border-color: #989898;
+            --border-width: 0.12vw;
+            --text-blue: rgb(0, 112, 198);
+            --font-family: "微软雅黑";
+            --table-header-bg: #e9eefd;
+            --table-column-bg: #dde9fc;
+        }
+
+        #ppt {
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+        }
+    </style>
+    <!-- 类名样式 -->
+    <style id="class_style">
+        #ppt .page {
+            /* 使用 16:9 宽高比 */
+            width: 100%;
+            height: calc(100vw * 9 / 16);
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            margin: 0;
+            font-family: var(--font-family);
+            font-size: 1.5vw;
+            overflow: auto;
+        }
+
+        #ppt .page.radial-grad {
+            /* 径向渐变，覆盖整个页面 */
+            background: radial-gradient(circle, var(--grad-color), var(--white));
+        }
+
+        #ppt .page.linear-grad {
+            /* 线性渐变，覆盖整个页面 */
+            background: linear-gradient(to right bottom, var(--white), var(--grad-color));
+        }
+
+        #ppt .page.has-table {
+            /* 含有表格的页面，背景色设置为白色 */
+            background: var(--white);
+        }
+
+        #ppt [test] {
+            min-height: 20px;
+            outline: auto;
+            color: magenta !important;
+        }
+
+        #ppt .text-blue {
+            color: var(--text-blue);
+        }
+
+        #ppt .text-black {
+            color: black;
+        }
+
+        #ppt .text-center {
+            text-align: center;
+        }
+
+        #ppt .text-left {
+            text-align: left;
+        }
+
+        #ppt .text-right {
+            text-align: right;
+        }
+
+        #ppt .indent {
+            text-indent: 2em;
+        }
+
+        #ppt .light {
+            font-weight: normal;
+        }
+
+        #ppt .bold {
+            font-weight: bold;
+        }
+
+        #ppt .italic {
+            font-style: italic;
+        }
+
+        #ppt .underline {
+            text-decoration: underline;
+        }
+
+        #ppt .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #ppt .flex {
+            display: flex;
+        }
+
+        #ppt .flex.column {
+            flex-direction: column;
+        }
+
+        #ppt .flex.h-center {
+            justify-content: center;
+        }
+
+        #ppt .flex.v-center {
+            align-items: center;
+        }
+
+        #ppt .table {
+            width: 100%;
+            height: 100%;
+            border: 0.1vw solid var(--border-color);
+            text-align: center;
+            font-size: 1.3vw;
+        }
+
+        #ppt .selected {
+            font-weight: bold;
+            text-decoration: underline;
+            color: var(--text-blue);
+        }
+
+        #ppt ::marker {
+            color: var(--text-blue);
+            font-size: 2vw;
+        }
+    </style>
+    <!-- 元素样式 -->
+    <style id="element_style">
+        #ppt .container-78 {
+            height: 76%;
+        }
+
+        #ppt .padding-right-5 {
+            padding-right: 5%;
+        }
+
+        #ppt .font-size-2-6 {
+            font-size: 2.6vw;
+        }
+
+        #ppt .font-size-6-5 {
+            font-size: 6.5vw;
+        }
+
+        #ppt .font-size-5 {
+            font-size: 5vw;
+        }
+
+        #ppt .font-size-3-8 {
+            font-size: 3.8vw;
+        }
+
+        #ppt .font-size-2-35 {
+            font-size: 2.35vw;
+        }
+
+        #ppt .font-size-2-5 {
+            font-size: 2.5vw;
+        }
+
+        #ppt .font-size-2 {
+            font-size: 2vw;
+        }
+
+        #ppt .font-size-1-75 {
+            font-size: 1.75vw;
+        }
+
+        #ppt .font-size-1-65 {
+            font-size: 1.65vw;
+        }
+
+        #ppt .font-size {
+            font-size: 2.4vw;
+        }
+
+        #ppt .margin-4-5 {
+            margin: 4.5vw;
+        }
+
+        #ppt .margin-5 {
+            margin: 5vw;
+        }
+
+        #ppt .margin-6-5 {
+            margin: 6.5vw;
+        }
+
+        #ppt .margin-v-2-5 {
+            margin: 2.5vw 0;
+        }
+
+        #ppt .margin-top-7-6 {
+            margin-top: 7.6vw;
+        }
+
+        #ppt .margin-top-2-5 {
+            margin-top: 2.5vw;
+        }
+
+        #ppt .margin-only-bottom-1-5 {
+            margin: 0 0 1.5vw 0;
+        }
+
+        #ppt .margin-only-bottom-2 {
+            margin: 0 0 2vw 0;
+        }
+
+        #ppt .margin-v-4-h-8 {
+            margin: 4vw 8vw;
+        }
+
+        #ppt .disc {
+            list-style: disc;
+        }
+
+        #ppt .no-margin {
+            margin: 0;
+        }
+
+        #ppt .no-padding {
+            padding: 0;
+        }
+
+        #ppt .padding-2-5 {
+            padding: 2.5vw;
+        }
+
+        #ppt .padding-left-2-5 {
+            padding-left: 2.5vw;
+        }
+
+        #ppt .padding-left-2 {
+            padding-left: 2vw;
+        }
+
+        #ppt .padding-left-4 {
+            padding-left: 4vw;
+        }
+
+        #ppt .table-header {
+            background-color: var(--table-header-bg);
+            font-weight: bold;
+        }
+
+        #ppt .table-column {
+            background-color: var(--table-column-bg);
+        }
+
+        #ppt .border-solid {
+            border: var(--border-width) solid var(--text-blue);
+        }
+
+        #ppt .border-dashed {
+            border: var(--border-width) dashed var(--text-blue);
+        }
+
+        #ppt .border-right-solid {
+            border-right: var(--border-width) solid var(--text-blue);
+        }
+
+        #ppt .border-bottom-solid {
+            border-bottom: var(--border-width) solid var(--text-blue);
+        }
+
+        #ppt .border-right-dashed {
+            border-right: var(--border-width) dashed var(--text-blue);
+        }
+
+        #ppt .border-bottom-dashed {
+            border-bottom: var(--border-width) dashed var(--text-blue);
+        }
+
+        #ppt .border-right-bottom-solid {
+            border-right: var(--border-width) solid var(--text-blue);
+            border-bottom: var(--border-width) solid var(--text-blue);
+        }
+
+        #ppt .border-right-bottom-dashed {
+            border-right: var(--border-width) dashed var(--text-blue);
+            border-bottom: var(--border-width) dashed var(--text-blue);
+        }
+
+        #ppt .no-border {
+            border: none;
+        }
+
+        #ppt .height-9-1 {
+            height: 9.1vw;
+        }
+    </style>
+    <!-- 主体内容 -->
+    <main id="main">
+        <div id="ppt">
+            <div class="page radial-grad" id="page1">
+                <div class="container flex-container container-78">
+                    <div class="combine text-center">
+                        <h1 class="font-size-6-5 margin-6-5">创业项目设计</h1>
+                        <h2 class="font-size-3-8 margin-5 text-blue">AI 智能垃圾分类回收系统</h2>
+                    </div>
+                </div>
+                <div class="aside margin-top-7-6">
+                    <aside class="text-right padding-right-5 font-size-2-6">
+                        ——创意启航队
+                    </aside>
+                </div>
+            </div>
+            <div class="page linear-grad" id="page2">
+                <div class="container margin-v-4-h-8 font-size-2-35">
+                    <h2 class="text-center margin-4-5 text-blue font-size-2-5">
+                        创业项目设计：基于 AI 的智能垃圾分类回收系统
+                    </h2>
+                    <p class="indent">
+                        本项目聚焦于研发全场景智能垃圾分类回收解决方案，
+                        通过 AI 视觉识别技术与物联网设备的深度融合，
+                        为家庭、社区、企业提供高效的垃圾分类与资源回收服务。核心产品包括：
+                    </p>
+                    <ol class="padding-left-2-5">
+                        <li class="margin-v-2-5">
+                            <b>智能分类回收箱：</b>集成 AI 图像识别、自动称重、智能感应功能，支持多品类垃圾
+                            （如塑料、金属、纸张、有害垃圾）的精准分类投放。
+                        </li>
+                        <li class="margin-v-2-5">
+                            <b>云平台管理系统：</b>实时监控设备运行状态、分析用户行为数据、
+                            优化回收物流路径，并提供政府监管与企业运营的可视化界面。
+                        </li>
+                        <li class="margin-v-2-5">
+                            <b>用户激励体系：</b>通过积分奖励、碳账户、公益捐赠等机制，
+                            提升居民参与度，形成 “分类 - 回收 - 再生” 的闭环生态。
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="page linear-grad" id="page3">
+                <div class="container margin-v-4-h-8 font-size-2">
+                    <h2 class="text-center no-margin text-blue font-size-2-5">
+                        AI 的智能垃圾分类回收系统的核心优势
+                    </h2>
+                    <ol class="padding-left-2">
+                        <li class="text-blue in">
+                            <p class="text-blue no-margin">
+                                <strong>技术创新壁垒</strong>
+                            </p>
+                            <p class="text-black indent margin-only-bottom-2">
+                                自主研发的多模态 AI 识别算法，融合图像、重量、
+                                材质传感器数据，可实现 95% 以上的分类准确率，
+                                远超传统人工分拣效率。例如，
+                                系统能精准区分传统技术易误判的黑色塑料与其他材质，
+                                避免可回收物污染。
+                            </p>
+                        </li>
+                        <li class="text-blue">
+                            <p class="text-blue no-margin">
+                                <strong>商业模式多元</strong>
+                            </p>
+                            <ul class="disc padding-left-4 margin-only-bottom-1-5">
+                                <li>
+                                    <span class="text-black">
+                                        <strong>设备销售与订阅服务：</strong>向政府、物业、
+                                        企业提供智能回收箱硬件及管理平台，年订阅费约
+                                        5000-10000 元 / 台。
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="text-black">
+                                        <strong>再生资源交易：</strong>通过规模化回收废塑料、金属等，
+                                        与下游再生企业（如英科再生、博汇纸业）建立长期采购协议，
+                                        每吨可回收物毛利率达 20%-30%。
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="text-black">
+                                        <strong>碳资产收益：</strong>依托分类回收减少的垃圾填埋量，
+                                        可申请国家核证自愿减排量，预计每吨 CO₂减排收益约
+                                        50-80 元。
+                                    </span>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="text-blue">
+                            <p class="text-blue no-margin">
+                                <strong>政策与市场双驱动</strong>
+                            </p>
+                            <p class="indent no-margin text-black">
+                                国家 “十四五” 规划明确要求<b>2025 年城市生活垃圾资源化利用率达 60% ,</b>
+                                多地政府将垃圾分类纳入绩效考核, 并对智能回收设备给予<b>30%-50%
+                                    的采购补贴。</b>
+                            </p>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="page has-table" id="page4">
+                <table class="table border-solid" cellspacing="0" cellpadding="0">
+                    <!-- 第一部分 -->
+                    <tr class="table-header height-9-1 font-size-2-35 text-blue">
+                        <th class="border-bottom-solid border-right-dashed" width="17%">
+                            条件
+                        </th>
+                        <th class="border-bottom-solid border-right-dashed" width="18%">
+                            得分(-5~5)
+                        </th>
+                        <th class="border-bottom-solid border-right-dashed" width="23%">
+                            商业创意在各部分的总体潜力
+                        </th>
+                        <th class="border-bottom-solid" width="42%">
+                            提高潜力的建议
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="table-column border-right-bottom-dashed light font-size-1-75" rowspan="3">
+                            第一部分，商业创意的优势
+                        </th>
+                        <td class="border-right-bottom-dashed font-size-5" rowspan="3">
+                            1
+                        </td>
+                        <td class="border-right-bottom-dashed font-size-2" rowspan="1">
+                            高潜力
+                        </td>
+                        <td class="border-bottom-dashed" rowspan="3">
+                            <ul class="text-left font-size-1-65 no-margin padding-left-2-5">
+                                <li>
+                                    <b class="text-blue">强化技术差异化：</b>持续投入研发，
+                                    聚焦边缘计算技术在智能回收箱的应用，
+                                    减少数据传输延迟，提升离线场景下的识别准确率。
+                                </li>
+                                <li>
+                                    <b class="text-blue">创新盈利模式：</b>推出 “设备 + 数据服务” 订阅套餐，
+                                    为政府和企业提供定制化数据分析报告，如区域垃圾分类趋势、
+                                    资源回收效率评估等。
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="border-right-bottom-dashed font-size-2 selected" rowspan="1">
+                            中等潜力
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="border-right-bottom-dashed font-size-2" rowspan="1">
+                            低潜力
+                        </td>
+                    </tr>
+                    <!-- 第二部分 -->
+                    <tr>
+                        <th class="table-column border-right-bottom-dashed light font-size-1-75" rowspan="3">
+                            第二部分，与产业相关的问题
+                        </th>
+                        <td class="border-right-bottom-dashed font-size-5" rowspan="3">
+                            1
+                        </td>
+                        <td class="border-right-bottom-dashed font-size-2" rowspan="1">
+                            高潜力
+                        </td>
+                        <td class="border-bottom-dashed" rowspan="3">
+                            <ul class="text-left font-size-1-65 no-margin padding-left-2-5">
+                                <li>
+                                    <b class="text-blue">建立产业联盟：</b>联合高校、科研机构及上下游企业，
+                                    成立智能垃圾分类产业联盟，共享技术、数据与渠道资源，
+                                    增强在产业中的话语权。​
+                                </li>
+                                <li>
+                                    <b class="text-blue">拓展应用场景：</b>将技术延伸至工业固废处理、
+                                    景区垃圾智能分类等细分领域，避开城市市场的激烈竞争，
+                                    开辟新的增长曲线。
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="border-right-bottom-dashed font-size-2 selected" rowspan="1">
+                            中等潜力
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="border-right-bottom-dashed font-size-2" rowspan="1">
+                            低潜力
+                        </td>
+                    </tr>
+                    <!-- 第三部分 -->
+                    <tr>
+                        <th class="table-column border-right-dashed light font-size-1-75" rowspan="3">
+                            第三部分，目标市场与消费者相关的问题
+                        </th>
+                        <td class="border-right-dashed  font-size-5" rowspan="3">
+                            1
+                        </td>
+                        <td class="border-right-bottom-dashed font-size-2" rowspan="1">
+                            高潜力
+                        </td>
+                        <td class="no-border" rowspan="3">
+                            <ul class="text-left font-size-1-65 no-margin padding-left-2-5">
+                                <li class="text-black">
+                                    精准用户运营：基于用户行为数据，采用个性化推荐算法推送。
+                                    对年轻用户，提供热门数字藏品兑换；
+                                    对中老年用户，设置生活用品兑换渠道。​
+                                </li>
+                                <li>
+                                    开展社区试点：与社区合作打造 “智能垃圾分类示范社区”，
+                                    通过现场演示、互动游戏等方式，
+                                    以点带面提升品牌影响力与用户接受度。
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="border-right-bottom-dashed font-size-2 selected" rowspan="1">
+                            中等潜力
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="border-right-dashed font-size-2" rowspan="1">
+                            低潜力
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="page has-table" id="page5">
+                <table class="table border-solid" cellspacing="0" cellpadding="0">
+                    <!-- 第四部分 -->
+                    <tr class="table-header height-9-1 font-size-2-35 text-blue">
+                        <th class="border-bottom-solid border-right-dashed" width="17%">
+                            条件
+                        </th>
+                        <th class="border-bottom-solid border-right-dashed" width="18%">
+                            得分(-5~5)
+                        </th>
+                        <th class="border-bottom-solid border-right-dashed" width="23%">
+                            商业创意在各部分的总体潜力
+                        </th>
+                        <th class="border-bottom-solid" width="42%">
+                            提高潜力的建议
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="table-column border-right-bottom-dashed light font-size-1-75" rowspan="3">
+                            第四部分，与创业者相关的问题
+                        </th>
+                        <td class="border-right-bottom-dashed font-size-5" rowspan="3">
+                            2
+                        </td>
+                        <td class="border-right-bottom-dashed font-size-2 selected" rowspan="1">
+                            高潜力
+                        </td>
+                        <td class="border-bottom-dashed" rowspan="3">
+                            <ul class="text-left font-size-1-65 no-margin padding-left-2-5">
+                                <li style="width: 100%;">
+                                    <b class="text-blue">组建复合型团队：</b>招募具有政府公关、互联网运营、
+                                    供应链管理经验的人才，补足团队短板。定期组织跨部门协作培训，
+                                    提升团队整体战斗力。
+                                </li>
+                                <li>
+                                    <b class="text-blue">引入外部顾问：</b>邀请环保行业资深专家、连续创业者担任顾问，
+                                    借助其经验资源，规避创业过程中的常见风险，优化企业战略决策。​
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="border-right-bottom-dashed font-size-2" rowspan="1">
+                            中等潜力
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="border-right-bottom-dashed font-size-2" rowspan="1">
+                            低潜力
+                        </td>
+                    </tr>
+                    <!-- 第五部分 -->
+                    <tr>
+                        <th class="table-column border-right-bottom-dashed light font-size-1-75" rowspan="3">
+                            第五部分，融资问题
+                        </th>
+                        <td class="border-right-bottom-dashed font-size-5" rowspan="3">
+                            0
+                        </td>
+                        <td class="border-right-bottom-dashed font-size-2" rowspan="1">
+                            高潜力
+                        </td>
+                        <td class="border-bottom-dashed" rowspan="3">
+                            <ul class="text-left font-size-1-65 no-margin padding-left-2-5">
+                                <li>
+                                    <b class="text-blue">争取政策资金：</b>积极申报国家高新技术企业，获取税收减免、
+                                    研发补贴等政策红利；关注地方政府设立的环保产业专项基金，
+                                    申请项目资助。
+                                </li>
+                                <li>
+                                    <b class="text-blue">探索股权融资：</b>参与行业路演活动，
+                                    对接专注环保科技领域的投资机构；考虑引入战略投资者，
+                                    如大型再生资源企业，实现资源互补。
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="border-right-bottom-dashed font-size-2" rowspan="1">
+                            中等潜力
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="border-right-bottom-dashed font-size-2 selected" rowspan="1">
+                            低潜力
+                        </td>
+                    </tr>
+                    <!-- 总体评价 -->
+                    <tr>
+                        <th class="table-column border-right-dashed bold font-size-1-75" rowspan="3">
+                            总体评价
+                        </th>
+                        <td class="border-right-dashed bold font-size-5" rowspan="3">
+                            5
+                        </td>
+                        <td class="border-right-bottom-dashed font-size-2" rowspan="1">
+                            高潜力
+                        </td>
+                        <td class="no-border" rowspan="3">
+                            <p class="text-left font-size-1-65 no-margin padding-2-5">
+                                本项目通过<b>AI 技术重构垃圾分类产业链，</b>
+                                在政策红利与环保需求双重驱动下具备较强的商业潜力。
+                                通过<b class="text-blue">技术差异化、运营轻资产化、融资多元化、深化用户粘性、
+                                    提前布局合规</b>的策略，可较大地提升总体潜力。
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="border-right-bottom-dashed font-size-2 selected" rowspan="1">
+                            中等潜力
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="border-right-dashed font-size-2" rowspan="1">
+                            低潜力
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </main>
+    <!-- 弹窗样式 -->
+    <style id="dialog_style">
+        @keyframes dialog-fade-in {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        #dialog {
+            animation: dialog-fade-in 0.18s ease-in-out;
+        }
+
+        #dialog .title {
+            text-align: center;
+            font-size: 35px;
+            margin: 10px;
+            color: purple;
+        }
+
+        #dialog .image-box {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+        }
+
+        #dialog .box-text {
+            display: block;
+            font-size: 20px;
+            width: 300px;
+        }
+
+        #dialog .foot {
+            text-align: center;
+            margin: 10px;
+            color: dimgray;
+            font-size: 20px;
+        }
+
+        #dialog #battery {
+            font-size: 32px;
+            color: magenta;
+        }
+
+        #dialog #cost {
+            font-size: 30px;
+            color: darkblue;
+        }
+    </style>
+    <!-- 弹窗 -->
+    <dialog id="dialog">
+        <div>
+            <h2 class="title">
+                别走！给我充个电吧！
+            </h2>
+            <div class="image-box">
+                <span class="box-text">
+                    本 PPT 耗时 150 分钟做成，而你只看了
+                    <span id="cost">0.00</span>
+                    分钟。扫码添加我，给我充电吧！
+                </span>
+                <img src="http://photonjmaz.photo.store.qq.com/psc?/V50Lbk0J4GR5p
+C2RPKTC4J7u8j495y1d/TmEUgtj9EK6.7V8ajmQrED01ddN06u611URH2ruUjB2yJF4r91QT6DpCDNPI3
+5C2rtJNU1NROAd5VXlX1aafZVZETCiV9wKUct9PlYrShGE!/b" width="200" height="200"
+                    alt="图片可能加载失败了，可以输入微信号: wxid_5hretu7nhixe22 添加我！">
+            </div>
+            <p class="foot">
+                我的电量：<b id="battery">60%</b>
+            </p>
+        </div>
+    </dialog>
+    <!-- 脚本 -->
+    <script id="script">
+        var app = {
+            init() {
+                this.getLoginTime();
+                this.pushState();
+                this.requestWakeLock();
+                this.getBattery();
+                window.addEventListener('popstate', () => {
+                    app.popState();
+                });
+                this.element.dialog.addEventListener('click', () => {
+                    app.closeDialog();
+                });
+                window.addEventListener('beforeunload', () => {
+                    app.releaseWakeLock();
+                });
+                this.element.ppt.addEventListener('dblclick', () => {
+                    app.requestFullscreen();
+                });
+            },
+            element: {
+                ppt: document.getElementById('ppt'),
+                dialog: document.getElementById('dialog'),
+                cost: document.getElementById('cost'),
+                battery: document.getElementById('battery'),
+            },
+            dialogOpen: false,
+            battery: 0,
+            wakeLock: null,
+            loginTime: 0,
+            getBattery() {
+                if (navigator.getBattery) {
+                    navigator.getBattery().then((battery) => {
+                        this.battery = Math.round(battery.level * 100);
+                        this.element.battery.innerText = this.battery + '%';
+                        battery.addEventListener('levelchange', () => {
+                            this.battery = Math.round(battery.level * 100);
+                            this.element.battery.innerText = this.battery + '%';
+                        });
+                    });
+                }
+            },
+            requestWakeLock() {
+                if (screen.wakeLock) {
+                    this.wakeLock = navigator.wakeLock.request('screen');
+                }
+            },
+            releaseWakeLock() {
+                if (this.wakeLock) {
+                    this.wakeLock.release();
+                }
+            },
+            requestFullscreen() {
+                if (this.element.ppt.requestFullscreen) {
+                    this.element.ppt.requestFullscreen();
+                } else if (this.element.ppt.webkitRequestFullscreen) {
+                    this.element.ppt.webkitRequestFullscreen();
+                } else if (this.element.ppt.mozRequestFullScreen) {
+                    this.element.ppt.mozRequestFullScreen();
+                } else if (this.element.ppt.msRequestFullscreen) {
+                    this.element.ppt.msRequestFullscreen();
+                }
+            },
+            showDialog() {
+                if (this.dialogOpen) return;
+                this.dialogOpen = true;
+                this.element.dialog.showModal();
+            },
+            closeDialog() {
+                this.dialogOpen = false;
+                this.element.dialog.close();
+            },
+            getLoginTime() {
+                this.loginTime = new Date().getTime();
+            },
+            getCostTime() {
+                var costTime = (new Date().getTime() - this.loginTime) / 1000 / 60;
+                this.element.cost.innerText = costTime.toFixed(2);
+            },
+            vibrate(pattern) {
+                if (navigator.vibrate) {
+                    navigator.vibrate(pattern);
+                }
+            },
+            pushState(url = "#page1") {
+                history.pushState({}, '', url);
+            },
+            popState() {
+                this.getCostTime();
+                this.showDialog();
+                this.vibrate(500);
+            },
+        }
+        app.init();
+    </script>
+</body>
+
+</html>
