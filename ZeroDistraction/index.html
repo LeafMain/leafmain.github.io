@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>零分心</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main id="app">
+        <!-- 应用封面 -->
+        <div class="page" id="page_cover">
+            <!-- 标题 -->
+            <div class="cover-title">
+                <h1>零分心</h1>
+                <p>专注于你最需要的事情</p>
+            </div>
+            <!-- 用户手册 -->
+            <div class="cover-desc">
+                <label>
+                    <input type="checkbox" id="user_book_agree">
+                    <span>已充分阅读并同意</span>
+                    <a href="#" id="user_book_link">《用户手册》</a>
+                </label>
+            </div>
+            <!-- 开始按钮 -->
+            <div class="cover-button">
+                <button type="button" id="enter_main_button">开始专注</button>
+            </div>
+        </div>
+        <!-- 应用主界面 -->
+        <div class="page" id="page_main">
+            <!-- 系统信息 -->
+            <div class="info">
+                <!-- 系统日期时间信息 -->
+                <time datetime="2000-01-01" id="system_datetime">2000-01-01</time>
+                <time datetime="00:00:00" id="system_time">00:00:00</time>
+                <!-- 电池电量信息 -->
+                <meter id="system_battery_bar" min="0" max="1" low="0.1" value="0.5">
+                </meter>
+                <span class="battery" id="system_battery_level">100%</span>
+            </div>
+            <!-- 专注时间 -->
+            <div class="circle">
+                <!-- 当前专注时间 -->
+                <div class="current">
+                    <p>当前专注时间</p>
+                    <time datetime="00:00:00" id="current_focus_time">
+                        00:00:00
+                    </time>
+                </div>
+                <!-- 累计专注时间 -->
+                <div class="accumulated">
+                    <p>累计专注时间</p>
+                    <time datetime="00:00:00" id="accumulated_focus_time">
+                        00:00:00
+                    </time>
+                </div>
+            </div>
+            <!-- 操作按钮 -->
+            <div class="operation">
+                <div class="focus-info" id="focus_info"></div>
+                <button type="button" id="exit_focus_button">退出专注</button>
+            </div>
+        </div>
+    </main>
+    <div id="dialogs">
+        <!-- 退出专注确认弹窗 -->
+        <div class="dialog" id="dialog_exit_focus">
+            <div class="body">
+                <h2>请输入以下文字退出专注：</h2>
+                <p class="text" id="dialog_exit_focus_text">
+                    我确定我需要结束专注，因为我认为自己已经足够努力，完成任务了。
+                </p>
+                <textarea aria-label="输入以上文字" id="dialog_exit_focus_input"></textarea>
+                <div class="group">
+                    <button type="button" id="dialog_exit_focus_confirm">确定</button>
+                    <button type="button" id="dialog_exit_focus_cancel">取消</button>
+                </div>
+            </div>
+        </div>
+        <!-- 恢复全屏弹窗 -->
+        <div class="dialog" id="dialog_recover_fullscreen">
+            <div class="body">
+                <h2>恢复全屏</h2>
+                <p class="long">刚才意外退出了全屏模式，该过程因调整窗口减少了
+                    专注时间，为了保证专注效果，请立即点击按钮恢复到全屏模式。
+                    否则专注时间将一直暂停而不记录。此窗口下不会阻止其他的分神操作。
+                </p>
+                <div class="group">
+                    <button type="button" id="dialog_recover_fullscreen_confirm">
+                        恢复全屏
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- 分心提示弹窗 -->
+        <div class="dialog" id="dialog_distraction">
+            <div class="body">
+                <h2>分心提示弹窗</h2>
+                <svg class="icon" viewBox="0 0 1024 1024">
+                    <path class="warning" d="M1001.661867 796.544c48.896 
+                        84.906667 7.68 157.013333-87.552 
+                        157.013333H110.781867c-97.834667 0-139.050667-69.504
+                        -90.112-157.013333l401.664-666.88c48.896-87.552 
+                        128.725333-87.552 177.664 0l401.664 666.88zM479.165867 
+                        296.533333v341.333334a32 32 0 1 0 64 0v-341.333334a32 
+                        32 0 1 0-64 0z m0 469.333334v42.666666a32 32 0 1 0 64 
+                        0v-42.666666a32 32 0 1 0-64 0z">
+                    </path>
+                </svg>
+                <p id="dialog_distraction_text"></p>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
